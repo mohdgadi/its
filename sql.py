@@ -29,7 +29,7 @@ def get_data():
     try:
         connection = psycopg2.connect(user="a",
                                       password="a",
-                                      host="a",
+                                      host="aa",
                                       port="5432",
                                       database="d6vpt6453up78o")
         cursor = connection.cursor()

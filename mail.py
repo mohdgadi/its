@@ -6,7 +6,7 @@ logger = getLogger()
 
 
 def send_email(miqaat):
-    user = "a"
+    user = "aa"
     pwd = "a"
     recipient = "a"
     subject = "Pass open for " + miqaat.name
