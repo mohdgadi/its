@@ -31,6 +31,9 @@ def init_chrome_browser():
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
     op.add_argument("--disable-setuid-sandbox")
+    op.add_argument('--disable-dev-shm-usage')
+    op.add_argument('--disable-gpu')
+
     return webdriver.Chrome(options=op)
 
 
@@ -83,8 +86,7 @@ def check_if_miqaat_open(browser, miqaat):
         logger.info('Pass has opend for miqaat' + miqaat.name)
         send_email(miqaat)
     else:
-        logger.info('Pass has opend for miqaat' + miqaat.name)
-        send_email(miqaat)
+        logger.info('Pass has not opened for miqaat' + miqaat.name)
 
 
 def check_if_in_contains_string(html_txt, contains_arr):
@@ -108,16 +110,26 @@ def get_element(browser, miqaat):
 
 def logout(browser):
     browser.get('https://miqaat.its52.com/Logout.aspx')
+    time.sleep(5)
     logger.info("logged out success")
 
 
+def start():
+    try:
+        browser = init_chrome_browser()
+        dataDao = get_data_from_cache()
+        run(browser, dataDao)
+    except Exception as e:
+        logger.error("Exception occurred " + str(e))
+    finally:
+        browser.quit()
+
+
 if __name__ == '__main__':
-    is_start = True
-    # browser = init_firefox()
-    browser = init_chrome_browser()
     while True:
         logger.info("\n---------------------------------------------------------------\n")
-        dataDao = get_data_from_cache(is_start)
-        run(browser, dataDao)
-        is_start = False
+        try:
+            start()
+        except Exception as e:
+            logger.error("Exception occured " + str(e))
         logger.info("\n---------------------------------------------------------------\n")

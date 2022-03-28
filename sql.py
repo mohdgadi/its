@@ -13,10 +13,10 @@ timestamp = time.time()
 defaultData = DataDao([], User('30334344', 'gadiwala'))
 
 
-def get_data_from_cache(is_start):
+def get_data_from_cache():
     global timestamp
     global defaultData
-    if time.time() - timestamp > 60 or is_start:
+    if time.time() - timestamp > 60:
         timestamp = time.time()
         data = get_data()
         defaultData = data
@@ -27,9 +27,9 @@ def get_data():
     logger.info("Getting data from mysql")
     data = defaultData
     try:
-        connection = psycopg2.connect(user="a",
-                                      password="a",
-                                      host="aa",
+        connection = psycopg2.connect(user="nwxtqskgzcnsjg",
+                                      password="15f94c81777cf0ae1a2fdcf0b061b19dbc442b70ca11695b34645a929e31df53",
+                                      host="ec2-52-203-27-62.compute-1.amazonaws.com",
                                       port="5432",
                                       database="d6vpt6453up78o")
         cursor = connection.cursor()
