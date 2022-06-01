@@ -13,15 +13,6 @@ timestamp = time.time()
 defaultData = DataDao([], User('30334344', 'gadiwala'))
 
 
-def get_data_from_cache():
-    global timestamp
-    global defaultData
-    if time.time() - timestamp > 60:
-        timestamp = time.time()
-        data = get_data()
-        defaultData = data
-    return defaultData
-
 
 def get_data():
     logger.info("Getting data from mysql")
@@ -70,7 +61,7 @@ def update_miqaat(miqaat):
 
 
 def getUser(cursor):
-    cursor.execute("Select its, pwd from users order by id desc limit 1;")
+    cursor.execute("Select its, pwd from users where isactive=true order by id desc limit 1;")
     record = cursor.fetchall()
     return User(record[0][0], record[0][1])
 

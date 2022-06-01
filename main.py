@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 
 from logger import getLogger
 from mail import send_email
-from sql import get_data_from_cache
+from sql import get_data
 
 logger = getLogger()
 
@@ -116,8 +116,8 @@ def logout(browser):
 
 def start():
     try:
-        browser = init_chrome_browser()
-        dataDao = get_data_from_cache()
+        browser = init_firefox()
+        dataDao = get_data()
         run(browser, dataDao)
     except Exception as e:
         logger.error("Exception occurred " + str(e))
